@@ -23,6 +23,10 @@ This project requires Python 3 and the following libraries:
 * `scikit-learn`: Used for loading datasets (like Wine) and potentially needed if regenerating lookup tables.
 * `tqdm`: (Optional, but used in some scripts) For displaying progress bars.
 
-You can install the required libraries using pip:
-```bash
-pip install numpy pandas matplotlib scikit-learn tqdm
+## Results
+
+The main output of the experimentation is the results/experiment_results.csv file. This file contains detailed performance metrics for each algorithm run across the different datasets. The summary table printed at the end of run_all.py provides aggregated statistics (mean, standard deviation, success rate) useful for comparing the algorithms' consistency and effectiveness on the different fitness landscapes. Analysis of these results forms the basis for the project report/presentation.
+
+## Acknowledgements
+
+    Datasets sourced from scikit-learn (load_wine) and OpenML/UCI ML Repository (Heart Disease - Statlog ID 53, Seeds ID 1499).
