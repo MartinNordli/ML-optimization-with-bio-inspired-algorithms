@@ -29,4 +29,4 @@ The main output of the experimentation is the results/experiment_results.csv fil
 
 ## Acknowledgements
 
-    Datasets sourced from scikit-learn (load_wine) and OpenML/UCI ML Repository (Heart Disease - Statlog ID 53, Seeds ID 1499).
+Datasets sourced from scikit-learn (load_wine) and OpenML/UCI ML Repository (Heart Disease - Statlog ID 53, Seeds ID 1499).
