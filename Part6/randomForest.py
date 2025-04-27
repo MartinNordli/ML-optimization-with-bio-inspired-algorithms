@@ -70,20 +70,19 @@ class RandomForestFitness:
         self.global_opt = self._GLOBAL_OPT[task_id]
         self.h5_path = self._find_table()
 
-    # ------------------------------------------------------------------ helpers
+    # --- helpers ---
     def _find_table(self):
         table_name = {1: "5-heart-c_rf_mat.h5", 2: "8-zoo_rf_mat.h5"}.get(self.task_id)
         if table_name is None:
             return None
         p = self.tables_dir / table_name
-        print(f"DEBUG: Checking for table at path: {p}") # <-- Add this line
-        print(f"DEBUG: Does path exist? {p.exists()}") # <-- Add this line
+        print(f"DEBUG: Checking for table at path: {p}")
+        print(f"DEBUG: Does path exist? {p.exists()}")
         return p if p.exists() else None
 
     def _lookup_accuracy(self, decimal_index: int):
         with h5py.File(self.h5_path, "r") as h5f:
             data = h5f["data"]
-            # print(f"DEBUG: Shape of 'data' dataset read by h5py: {data.shape}") # <-- Add this
 
             return float(data[0, decimal_index - 1])
 
@@ -108,7 +107,7 @@ class RandomForestFitness:
             accs.append(accuracy_score(self.y_te, preds))
         return float(np.mean(accs))
 
-    # ------------------------------------------------------------------- public
+    # --- public ---
     def __call__(self, bits):
         """Evaluate one bit‑string, return (h(x), accuracy)."""
         bits = np.asarray(bits, dtype=int)
@@ -130,12 +129,9 @@ class RandomForestFitness:
         penalty = self.epsilon * bits.sum()
         return error + penalty, acc
 
-    # convenience for reporting
     def hamming_distance(self, bits):
         return int(np.sum(bits != self.global_opt))
 
-
-# ---------------------------------------------------------------- BPSO core
 
 def bpso(
     fitness,
@@ -177,8 +173,6 @@ def bpso(
     return gbest, gbest_val, history
 
 
-# ------------------------------------------------------------------- main
-
 def main():
     parser = argparse.ArgumentParser(
         description="Binary PSO + Random‑Forest feature selector (Project 3 – Step 6)"
@@ -191,9 +185,8 @@ def main():
 
     # ---- swarm & RF settings (edit as desired) -------------------
     swarm_size = 40
-    iters = 100
+    iters = 50
     w, c1, c2, v_max = 0.7, 1.5, 1.5, 4.0
-    # --------------------------------------------------------------
 
     start = time.time()
     best_bits, best_val, hist = bpso(
